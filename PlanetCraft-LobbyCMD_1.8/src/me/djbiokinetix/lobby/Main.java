@@ -68,17 +68,11 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 							cooldownTask.remove(p);
 							cancel();
 							sender.sendMessage(establecerColor("&8[&6Socket&8] &7Ya puedes enviar la peticion al &bLobby &7de nuevo!"));
-							/*if (isMC_8()||isMC_9()||isMC_10()) {
-								p.playSound(p.getLocation(), Sound.valueOf("LEVEL_UP"), 1F, 10F);
-							} else if (isMC_11()) {
-								p.playSound(p.getLocation(), Sound.valueOf("ENTITY_PLAYER_LEVELUP"), 1F, 10F);
-							}*/
 						}
 					}
 				});
-				cooldownTask.get(p).runTaskTimer(this, 20, 20);
 				
-//--------------------------------------------------------------------------------------------------------
+				cooldownTask.get(p).runTaskTimer(this, 20, 20);
 				
 				p.sendMessage(establecerColor("&8[&6Socket&8] &7Conectando con &bLobby&7..."));
 				p.sendMessage(establecerColor("&8[&6Socket&8] &7Enviando peticion..."));
@@ -94,14 +88,6 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 						p.sendMessage(establecerColor("&8[&6Socket&8] &7Respuesta en (&a10 &7ms)."));
 						p.sendMessage(establecerColor("&8═══════════════════════════════════"));
 						p.sendMessage("");
-						//p.sendMessage(establecerColor("&8[&6Socket&8] &7Para cancelar usa &c/lobby cancelar&7!"));
-						//p.sendMessage("");
-						
-						/*if (isMC_8()||isMC_9()||isMC_10()) {
-							p.playSound(p.getLocation(), Sound.valueOf("NOTE_PLING"), 1F, 10F);
-						} else if (isMC_11()) {
-							p.playSound(p.getLocation(), Sound.valueOf("BLOCK_NOTE_PLING"), 1F, 10F);
-						}*/
 						
 					}
 					
@@ -111,11 +97,6 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 					@Override
 					public void run() {
 						p.sendMessage(establecerColor("&8[&6Socket&8] &7Teletransporte en: &b"+cooldownTime2.get(p)));
-						/*if (isMC_8()||isMC_9()||isMC_10()) {
-							p.playSound(p.getLocation(), Sound.valueOf("NOTE_PLING"), 1F, 1F);
-						} else if (isMC_11()) {
-							p.playSound(p.getLocation(), Sound.valueOf("BLOCK_NOTE_PLING"), 1F, 1F);
-						}*/
 					}
 				}, 20, 20);
 				
@@ -144,27 +125,6 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 				return true;
 			}
 			
-			/*if (args.length > 0) {
-				if ((args[0].equalsIgnoreCase("cancelar"))||(args[0].equalsIgnoreCase("cancel"))||(args[0].equalsIgnoreCase("c"))) {
-
-					Bukkit.getScheduler().cancelTask(TID_PRINCIPAL);
-					Bukkit.getScheduler().cancelTask(TID_TEMPORIZADOR);
-					Bukkit.getScheduler().cancelTask(TID);
-					
-					log("Cancelados: TID_PRINCIPAL y TID");
-					
-					if (isMC_8()||isMC_9()||isMC_10()) {
-						p.playSound(p.getLocation(), Sound.valueOf("NOTE_BASS"), 1F, 1F);
-					} else if (isMC_11()) {
-						p.playSound(p.getLocation(), Sound.valueOf("BLOCK_NOTE_BASS"), 1F, 1F);
-					}
-					
-					p.sendMessage(establecerColor("&8[&6Socket&8] &7Hemos &ccancelado &7la peticion al &bLobby&7."));
-					
-				}
-				
-			}*/
-			
 		} else {
 			sender.sendMessage("[Code] Unicamente puedes ejecutar este comando desde el juego.");
 			return true;
@@ -185,12 +145,6 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 			ex.printStackTrace();
 		}
 		
-		/*if (isMC_8()||isMC_9()||isMC_10()) {
-			jugador.playSound(jugador.getLocation(), Sound.valueOf("ENDERMAN_TELEPORT"), 1F, 1F);
-		} else if (isMC_11()) {
-			jugador.playSound(jugador.getLocation(), Sound.valueOf("ENTITY_ENDERMEN_TELEPORT"), 1F, 1F);
-		}*/
-		
 		jugador.sendPluginMessage(this, "BungeeCord", bytes.toByteArray());
 		return;
 	}
@@ -207,51 +161,11 @@ public class Main extends JavaPlugin implements CommandExecutor/*, Listener*/ {
 		return instancia;
 	}
 	
-	/*public static boolean isMC_11() {
-		return Bukkit.getBukkitVersion().contains("1.11");
-	}
-	
-    public static boolean isMC_10() {
-    	return Bukkit.getBukkitVersion().contains("1.10");
-    }
-	
-	public static boolean isMC_9() {
-		return Bukkit.getBukkitVersion().contains("1.9");
-	}
-	
-	public static boolean isMC_8() {
-		return Bukkit.getBukkitVersion().contains("1.8");
-	}*/
-	
 	public String establecerColor(String color) {
 		color=color.replace("{C1}", "»");
 		color=color.replace("{C2}", "«");
 		return ChatColor.translateAlternateColorCodes('&', color);
 	}
-	
-	/*@EventHandler
-	public void onCMD(PlayerCommandPreprocessEvent e) {
-		Player p = e.getPlayer();
-		if ((e.getMessage().equalsIgnoreCase("/lobby"))||(e.getMessage().equalsIgnoreCase("/LobbyCMD:lobby"))) {
-			if (EggWarsAPI.getEggWarsPlayer(p).isInArena()) {
-				p.sendMessage(establecerColor("&8[&6Socket&8] &4&lERROR: &7No puedes ir al &bLobby &7si estas en una arena!"));
-				if (isMC_8()||isMC_9()||isMC_10()) {
-					p.playSound(p.getLocation(), Sound.valueOf("WITHER_HURT"), 1F, -20F);
-				} else if (isMC_11()) {
-					p.playSound(p.getLocation(), Sound.valueOf("ENTITY_WITHER_HURT"), 1F, -20F);
-				}
-				if (cooldownTime.containsKey(p)||cooldownTask.containsKey(p)) {
-					cooldownTask.remove(p);
-					cooldownTime.remove(p);
-					Bukkit.getScheduler().cancelTasks((Plugin) TID_COOLDOWN);
-				}
-				e.setCancelled(true);
-				return;
-			}
-		} else {
-			return;
-		}
-	}*/
 	
 	@Override
 	public void onDisable() {}

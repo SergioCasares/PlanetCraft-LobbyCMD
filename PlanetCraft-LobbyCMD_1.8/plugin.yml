@@ -1,0 +1,9 @@
+name: LobbyCMD
+main: me.djbiokinetix.lobby.Main
+author: DJBiokinetix
+version: 1.0
+description: >
+    Teletransporta un jugador al Lobby.
+commands:
+   lobby:
+    description: Lobby.
